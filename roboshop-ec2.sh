@@ -3,7 +3,7 @@
 AMI=ami-09c813fb71547fc4f #this keeps on changing
 SG_ID=sg-06b1b57b365846051 #replace with your SG ID
 INSTANCES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping" "payment" "dispatch" "web")
-ZONE_ID=Z104317737D96UJVA7NEF # replace your zone ID
+ZONE_ID=Z0755315ISKOD1S2G2LL # replace your zone ID
 DOMAIN_NAME="lingaiah.online"
 
 for i in "${INSTANCES[@]}"

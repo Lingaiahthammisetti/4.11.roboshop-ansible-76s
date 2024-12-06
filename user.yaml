@@ -66,9 +66,9 @@
   #   register: user_count
 
 
-  - name: get the users count
-    ansible.builtin.command: mongosh --host $MONGO_HOST --quiet --eval "db.getMongo().getDBNames().indexOf('users')"
-    register: user_count
+  # - name: get the users count
+  #   ansible.builtin.command: mongosh --host $MONGO_HOST --quiet --eval "db.getMongo().getDBNames().indexOf('users')"
+  #   register: user_count
   
   # - name: print the count
   #   ansible.builtin.debug:
@@ -76,7 +76,7 @@
 
   - name: load user data
     ansible.builtin.command: mongosh --host mongodb.lingaiah.online < /app/schema/user.js
-    when: user_count.stdout == "0" # keep double quotes
+    #when: user_count.stdout == "0" # keep double quotes
 
   - name: start and enable user
     ansible.builtin.service:

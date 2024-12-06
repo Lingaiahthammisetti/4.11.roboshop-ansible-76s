@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: disable old nodejs and enable nodejs
-    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:18 -y
+    ansible.builtin.shell: dnf module disable nodejs -y ; dnf module enable nodejs:20 -y
 
   - name: Install nodejs
     ansible.builtin.dnf:
@@ -53,18 +53,23 @@
 
   - name: Copy mongodb repo
     ansible.builtin.copy:
-      src: mongodb.repo
-      dest: /etc/yum.repos.d/mongodb.repo
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
 
   - name: Install mongodb client
     ansible.builtin.package:
       name: mongodb-mongosh
       state: present
 
-  - name: get the users count
-    ansible.builtin.command:  mongosh --host mongodb.lingaiah.online --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
-    register: user_count
+  # - name: get the users count
+  #   ansible.builtin.command:  mongosh --host mongodb.lingaiah.online --quiet --eval 'db = db.getSiblingDB("users"); db.users.count()'
+  #   register: user_count
 
+
+  - name: get the users count
+    ansible.builtin.command: mongosh --host $MONGO_HOST --quiet --eval "db.getMongo().getDBNames().indexOf('users')"
+    register: user_count
+  
   # - name: print the count
   #   ansible.builtin.debug:
   #     msg: "product count: {{user_count}}"

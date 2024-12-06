@@ -2,7 +2,7 @@
   hosts: redis
   become: yes
   tasks:
-   - name: install redis
+  - name: install redis
     ansible.builtin.dnf:
       name: redis
       state: present

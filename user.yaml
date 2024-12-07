@@ -45,18 +45,23 @@
       src: user.service
       dest: /etc/systemd/system/user.service
 
-  - name: deamon realod and start
+  - name: deamon reload and start
     ansible.builtin.systemd_service:
       daemon_reload: true
 
-  # let's start after the data is loaded
+  - name: start and enable user
+    ansible.builtin.service:
+      name: user
+      state: started
+      enabled: yes
 
+  # let's start after the data is loaded
   - name: Copy mongodb repo
     ansible.builtin.copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
 
-  - name: Install mongodb client
+  - name: Install mongodb-mongosh client
     ansible.builtin.package:
       name: mongodb-mongosh
       state: present
@@ -74,12 +79,12 @@
   #   ansible.builtin.debug:
   #     msg: "product count: {{user_count}}"
 
-  - name: load user data
+  - name: load user schema data
     ansible.builtin.command: mongosh --host mongodb.lingaiah.online < /app/schema/user.js
     #when: user_count.stdout == "0" # keep double quotes
 
-  - name: start and enable user
-    ansible.builtin.service:
-      name: user
-      state: restarted
-      enabled: yes
+  # - name: start and enable user
+  #   ansible.builtin.service:
+  #     name: user
+  #     state: restarted
+  #     enabled: yes

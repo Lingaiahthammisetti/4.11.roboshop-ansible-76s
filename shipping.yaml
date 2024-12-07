@@ -75,9 +75,9 @@
   #   when: schema.stdout != "1"
 
   - name: load cities data
-    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql"
-    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql"
-    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql"
+    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql
+    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql
+    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql
    
   - name: start and enable shipping
     ansible.builtin.service:

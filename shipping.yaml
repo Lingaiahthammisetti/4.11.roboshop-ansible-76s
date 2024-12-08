@@ -60,23 +60,15 @@
 
   - name: Load Schema
     ansible.builtin.command: "mysql -h mysql.lingaiah.online -uroot -pRoboShop@1 -e 'use cities' "
- #     register: schema
-
-  # - name: print output
-  #   ansible.builtin.debug:
-  #     msg: "schema output: {{schema}}"
 
   - name: load cities data
     ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql"
- #   when: schema.stdout != "1"
 
   - name: load cities data-2
     ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql"
-  #  when: schema.stdout != "1"
-
+  
   - name: load cities data-3
     ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql"
-  #  when: schema.stdout != "1"
 
   - name: start and enable shipping
     ansible.builtin.service:

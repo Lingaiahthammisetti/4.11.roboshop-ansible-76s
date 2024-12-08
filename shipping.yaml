@@ -59,7 +59,7 @@
       state: present
 
   - name: Load Schema
-      ansible.builtin.command: "mysql -h mysql.lingaiah.online -uroot -pRoboShop@1 -e 'use cities' "
+    ansible.builtin.command: "mysql -h mysql.lingaiah.online -uroot -pRoboShop@1 -e 'use cities' "
  #     register: schema
 
   # - name: print output

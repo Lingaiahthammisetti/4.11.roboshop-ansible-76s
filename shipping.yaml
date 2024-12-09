@@ -59,13 +59,13 @@
       state: present
 
   - name: load cities data
-    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql"
 
   - name: load cities data-2
-    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql"
   
   - name: load cities data-3
-    ansible.builtin.command: mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql"
 
   # - name: Install python mysql dependencies
   #   ansible.builtin.pip:

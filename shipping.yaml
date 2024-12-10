@@ -2,6 +2,7 @@
   hosts: shipping
   become: yes
   vars:
+    mysql_password: RoboShop@1
     login_password: RoboShop@1
     login_host: mysql.lingaiah.online
   tasks:
@@ -59,32 +60,48 @@
       name: mysql
       state: present
 
-  # - name: load cities data
-  #   ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql"
+  - name: load cities data
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/schema.sql"
 
-  # - name: load cities data-2
-  #   ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql"
+  - name: load cities data-2
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/app-user.sql"
   
-  # - name: load cities data-3
-  #   ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql"
+  - name: load cities data-3
+    ansible.builtin.shell: "mysql -h mysql.lingaiah.online -uroot -p{{mysql_password}}  < /app/db/master-data.sql"
 
-  - name: Install python mysql dependencies
-    ansible.builtin.pip:
-      name:
-      - PyMySQL
-      - cryptography
-      executable: pip3.9 #pip3.11 if python version is 3.11
+  # - name: Install python mysql dependencies
+  #   ansible.builtin.pip:
+  #     name:
+  #     - PyMySQL
+  #     - cryptography
+  #     executable: pip3.9 #pip3.11 if python version is 3.11
 
-  - name: import data into mysql
-    community.mysql.mysql_db:
-      login_user: root
-      login_password: "{{ login_password }}"
-      login_host: "{{ login_host }}"
-      target: /app/db/schema.sql
-      target: /app/db/app-user.sql
-      target: /app/db/master-data.sql
-      state: import
-      name: all
+  # - name: import data into mysql
+  #   community.mysql.mysql_db:
+  #     login_user: root
+  #     login_password: "{{ login_password }}"
+  #     login_host: "{{ login_host }}"
+  #     target: /app/db/schema.sql
+  #     state: import
+  #     name: all
+
+  # - name: import data into mysql
+  #   community.mysql.mysql_db:
+  #     login_user: root
+  #     login_password: "{{ login_password }}"
+  #     login_host: "{{ login_host }}"
+  #     target: /app/db/app-user.sql
+  #     state: import
+  #     name: all
+
+  # - name: import data into mysql
+  #   community.mysql.mysql_db:
+  #     login_user: root
+  #     login_password: "{{ login_password }}"
+  #     login_host: "{{ login_host }}"
+  #     target: /app/db/master-data.sql
+  #     state: import
+  #     name: all
 
   - name: start and enable shipping
     ansible.builtin.service:

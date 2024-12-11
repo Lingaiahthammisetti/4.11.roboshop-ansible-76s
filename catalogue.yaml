@@ -49,6 +49,12 @@
     ansible.builtin.systemd_service:
       daemon_reload: true
 
+  - name: start and enable catalogue
+    ansible.builtin.service:
+      name: catalogue
+      state: restarted
+      enabled: yes
+
   # let's start after the data is loaded
   - name: Copy mongo repo
     ansible.builtin.copy:
@@ -63,8 +69,3 @@
   - name: Load catalogue Schema
     ansible.builtin.shell: "mongosh --host mongodb.lingaiah.online </app/schema/catalogue.js"
 
-  - name: start and enable catalogue
-    ansible.builtin.service:
-      name: catalogue
-      state: restarted
-      enabled: yes

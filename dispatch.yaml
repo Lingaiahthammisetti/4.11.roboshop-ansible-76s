@@ -1,6 +1,5 @@
 - name: dispatch
-  hosts: localhost
-  #hosts: dispatch
+  hosts: dispatch
   become: yes
   tasks:
 
@@ -33,17 +32,6 @@
       src: /tmp/dispatch.zip
       dest: /app
       remote_src: yes
-
-  # - name: Install dependencies - init
-  #   ansible.builtin.command: go mod init dispatch
-  #   args:
-  #     chdir: /app
-
-  # - name: Install dependencies - get
-  #   ansible.builtin.command: go install 
-
-  # - name: Install dependencies - build
-  #   ansible.builtin.command: go build
 
   - name: build go application
     ansible.builtin.command: "{{item}}"
